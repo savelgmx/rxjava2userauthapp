@@ -3,13 +3,15 @@ package fb.fandroid.adv.rxjava2userauthapp;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.elegion.myfirstapplication.model.User;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import fb.fandroid.adv.rxjava2userauthapp.model.User;
 
 public class SharedPreferencesHelper {
     public static final String SHARED_PREF_NAME = "SHARED_PREF_NAME";

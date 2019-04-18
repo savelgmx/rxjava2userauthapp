@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.elegion.myfirstapplication.ApiUtils;
-import com.elegion.myfirstapplication.R;
-import com.elegion.myfirstapplication.album.DetailAlbumFragment;
-import com.elegion.myfirstapplication.model.Albums;
+
+import fb.fandroid.adv.rxjava2userauthapp.R;
+import fb.fandroid.adv.rxjava2userauthapp.model.Albums;
+import fb.fandroid.adv.rxjava2userauthapp.ApiUtils;
+import fb.fandroid.adv.rxjava2userauthapp.album.DetailAlbumFragment;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;

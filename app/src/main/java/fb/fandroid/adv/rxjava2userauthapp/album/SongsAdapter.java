@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.elegion.myfirstapplication.R;
-import com.elegion.myfirstapplication.model.Song;
+import fb.fandroid.adv.rxjava2userauthapp.R;
+import fb.fandroid.adv.rxjava2userauthapp.model.Song;
 
 import java.util.ArrayList;
 import java.util.List;

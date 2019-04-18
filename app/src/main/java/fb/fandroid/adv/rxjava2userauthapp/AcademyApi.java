@@ -1,11 +1,10 @@
 package fb.fandroid.adv.rxjava2userauthapp;
 
-import com.elegion.myfirstapplication.model.Album;
-import com.elegion.myfirstapplication.model.Albums;
-import com.elegion.myfirstapplication.model.Song;
-import com.elegion.myfirstapplication.model.Songs;
-import com.elegion.myfirstapplication.model.User;
-
+import fb.fandroid.adv.rxjava2userauthapp.model.Album;
+import fb.fandroid.adv.rxjava2userauthapp.model.Albums;
+import fb.fandroid.adv.rxjava2userauthapp.model.Song;
+import fb.fandroid.adv.rxjava2userauthapp.model.Songs;
+import fb.fandroid.adv.rxjava2userauthapp.model.User;
 import io.reactivex.Completable;
 import retrofit2.Call;
 import retrofit2.http.Body;

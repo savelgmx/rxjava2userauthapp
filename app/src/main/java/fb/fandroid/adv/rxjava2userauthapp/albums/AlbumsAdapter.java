@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.elegion.myfirstapplication.R;
-import com.elegion.myfirstapplication.model.Albums;
+
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fb.fandroid.adv.rxjava2userauthapp.R;
+import fb.fandroid.adv.rxjava2userauthapp.model.Albums;
 
 /**
  * @author Azret Magometov

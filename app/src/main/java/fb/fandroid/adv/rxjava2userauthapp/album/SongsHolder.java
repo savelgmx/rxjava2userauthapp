@@ -4,8 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.elegion.myfirstapplication.R;
-import com.elegion.myfirstapplication.model.Song;
+import fb.fandroid.adv.rxjava2userauthapp.R;
+import fb.fandroid.adv.rxjava2userauthapp.model.Song;
 
 public class SongsHolder extends RecyclerView.ViewHolder {
 

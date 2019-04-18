@@ -8,7 +8,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.elegion.myfirstapplication.model.User;
+import fb.fandroid.adv.rxjava2userauthapp.model.User;
+
 
 public class ProfileActivity extends AppCompatActivity {
     public static final String USER_KEY = "USER_KEY";

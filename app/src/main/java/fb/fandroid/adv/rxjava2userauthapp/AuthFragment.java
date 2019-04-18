@@ -17,13 +17,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.elegion.myfirstapplication.albums.AlbumsActivity;
-import com.elegion.myfirstapplication.model.User;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
 
+import fb.fandroid.adv.rxjava2userauthapp.albums.AlbumsActivity;
+import fb.fandroid.adv.rxjava2userauthapp.model.User;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
