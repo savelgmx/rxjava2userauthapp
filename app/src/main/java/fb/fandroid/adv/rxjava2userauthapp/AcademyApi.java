@@ -6,6 +6,7 @@ import fb.fandroid.adv.rxjava2userauthapp.model.Song;
 import fb.fandroid.adv.rxjava2userauthapp.model.Songs;
 import fb.fandroid.adv.rxjava2userauthapp.model.User;
 import io.reactivex.Completable;
+import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -22,7 +23,7 @@ public interface AcademyApi {
     Completable registration(@Body User user);
 
     @GET("albums")
-    Call<Albums> getAlbums();
+    Single<Albums> getAlbums();
 
     @GET("albums/{id}")
     Call<Album> getAlbum(@Path("id") int id);
