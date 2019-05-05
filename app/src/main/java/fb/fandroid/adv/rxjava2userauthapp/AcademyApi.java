@@ -10,6 +10,7 @@ import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -33,4 +34,7 @@ public interface AcademyApi {
 
     @GET("songs/{id}")
     Call<Song> getSong(@Path("id") int id);
+
+    @GET("user")
+    Single<User> getUser(@Header("Authorization") String authHeader);
 }
