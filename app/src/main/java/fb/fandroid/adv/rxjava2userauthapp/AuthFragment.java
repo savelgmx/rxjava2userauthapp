@@ -87,9 +87,10 @@ public class AuthFragment extends Fragment {
                                     e.printStackTrace();
                                 }
                             }
-                        });
-                    }
+
                 });
+                        }
+                    });
             } else {
                 showMessage(R.string.input_error);
             }

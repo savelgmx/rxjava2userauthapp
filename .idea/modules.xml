@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rxjava2userauthapp.iml" filepath="$PROJECT_DIR$/.idea/modules/rxjava2userauthapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rxjava2userauthapp.iml" filepath="$PROJECT_DIR$/rxjava2userauthapp.iml" />
     </modules>
   </component>
 </project>
