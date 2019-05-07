@@ -21,7 +21,7 @@ import retrofit2.http.Path;
 public interface AcademyApi {
 
     @POST("registration")
-    Completable registration(@Body User user);
+    Completable registration(@Body User.UserBean user);
 
     @GET("albums")
     Single<Albums> getAlbums();

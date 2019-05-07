@@ -1,59 +1,59 @@
 package fb.fandroid.adv.rxjava2userauthapp.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
-    @SerializedName("email")
-    private String mEmail;
-    @SerializedName("name")
-    private String mName;
-    @SerializedName("password")
-    private String mPassword;
+public class User {
 
-    private boolean mHasSuccessEmail;
+    @Expose
+    @SerializedName("data")
+    private final UserBean mData;
 
-    public User(String email, String password) {
-        mEmail = email;
-        mPassword = password;
+    public User(UserBean data) {
+        mData = data;
     }
 
-    public User(String email, String name, String password) {
-        mEmail = email;
-        mName = name;
-        mPassword = password;
+    public UserBean getData() {
+        return mData;
     }
 
-    public String getEmail() {
-        return mEmail;
-    }
+    public static class UserBean implements Serializable {
 
-    public void setEmail(String email) {
-        mEmail = email;
-    }
+        @SerializedName("email")
+        private String login;
+        @Expose
+        @SerializedName("name")
+        private String name;
 
-    public String getName() {
-        return mName;
-    }
+        @Expose
+        @SerializedName("password")
+        private String password;
 
-    public void setName(String name) {
-        mName = name;
-    }
+        public UserBean(String login, String name, String password) {
+            this.login = login;
+            this.name = name;
+            this.password = password;
+        }
 
-    public String getPassword() {
-        return mPassword;
-    }
+        private Boolean mHasSuccessLogin = false;
 
-    public void setPassword(String password) {
-        mPassword = password;
-    }
+        private Boolean hasSuccessLogin() {
+            return mHasSuccessLogin;
+        }
 
-    public boolean hasSuccessEmail() {
-        return mHasSuccessEmail;
-    }
+        private void setHasSuccessLogin(Boolean hasSuccessLogin) {
+            mHasSuccessLogin = hasSuccessLogin;
+        }
 
-    public void setHasSuccessEmail(boolean hasSuccessEmail) {
-        mHasSuccessEmail = hasSuccessEmail;
+
+        public String getEmail() {
+            return login;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 }
