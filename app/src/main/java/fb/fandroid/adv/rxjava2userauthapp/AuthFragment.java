@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +23,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import fb.fandroid.adv.rxjava2userauthapp.albums.AlbumsActivity;
 import fb.fandroid.adv.rxjava2userauthapp.model.User;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -49,49 +54,78 @@ public class AuthFragment extends Fragment {
         @Override
         public void onClick(View view) {
             if (isEmailValid() && isPasswordValid()) {
-                Request request = new Request.Builder()
-                        .url(BuildConfig.SERVER_URL.concat("/user"))
-                        .build();
+                String credentials = mEmail.getText().toString()+ ":" +mPassword.getText().toString();// concatenate username/email and password with colon for authentication
+                final String authHeader= "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);//form authenfication header
+                ApiUtils.getApiService()
+                        .getUser(authHeader)
+                        .subscribe(user->{
+                            //здесь данные которые успешно извлечены из user после вызова API
+                            Gson gson = new Gson();
 
-                OkHttpClient client = ApiUtils.getBasicAuthClient(
-                        mEmail.getText().toString(),
-                        mPassword.getText().toString(),
-                        true);
-                client.newCall(request).enqueue(new Callback() {
-                    //используем Handler, чтобы показывать ошибки в Main потоке, т.к. наши коллбеки возвращаются в рабочем потоке
-                    Handler mainHandler = new Handler(getActivity().getMainLooper());
+                        //    User.UserBean user = response.body().getData();
 
-                    @Override
-                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                        mainHandler.post(() -> showMessage(R.string.request_error));
-                    }
+                            Intent startProfileIntent = new Intent(getActivity(), ProfileActivity.class);
+                            startProfileIntent.putExtra(ProfileActivity.USER_KEY, (Serializable) user);
+                            startActivity(startProfileIntent);
+                            getActivity().finish();
 
-                    @Override
-                    public void onResponse(@NonNull Call call, @NonNull final Response response) throws IOException {
-                        mainHandler.post(() -> {
-                            if (!response.isSuccessful()) {
-                                //todo добавить полноценную обработку ошибок по кодам ответа от сервера и телу запроса
-                                showMessage(R.string.auth_error);
-                            } else {
-                                try {
-                                    Gson gson = new Gson();
-                                    JsonObject json = gson.fromJson(response.body().string(), JsonObject.class);
-                                    User user = gson.fromJson(json.get("data"), User.class);
+                        },Throwable::printStackTrace);
 
-                                    /*Intent startProfileIntent = new Intent(getActivity(), ProfileActivity.class);
-                                    startProfileIntent.putExtra(ProfileActivity.USER_KEY, user);
-                                    startActivity(startProfileIntent);*/
-                                    startActivity(new Intent(getActivity(), AlbumsActivity.class));
-                                    getActivity().finish();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+/*
+                public interface APIClient {
+
+                    @GET("pincode")
+                    Single<City> getCityFromPincode(@Query("pincode") String  pincode);
+                }
+                How you implement is
+
+                apiClient.getCityFromPincode("123456")
+                        .subscribe(city -> {
+                            // handle data fetched successfully and API call completed
+                        },Throwable::printStackTrace);
+*/
+
+/*                        .enqueue(
+
+                        new retrofit2.Callback<User>(){
+                            //используем Handler, чтобы показывать ошибки в Main потоке, т.к. наши коллбеки возвращаются в рабочем потоке
+                            Handler mainHandler = new Handler(getActivity().getMainLooper());
+                            @Override
+                            public void onFailure(retrofit2.Call<User> call, Throwable t) {
+                                mainHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        showMessage(R.string.request_error);
+                                    }
+                                });
                             }
 
-                });
-                        }
-                    });
+                            @Override
+                            public void onResponse(retrofit2.Call<User> call, final retrofit2.Response<User> response) {
+                                mainHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (!response.isSuccessful()) {
+                                      //      int errorMessage=ErrorUtils.parseError(response);
+                                            Toast.makeText(getActivity(),errorMessage,Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Gson gson = new Gson();
+
+                                            User.UserBean user = response.body().getData();
+
+                                            Intent startProfileIntent = new Intent(getActivity(), ProfileActivity.class);
+                                            startProfileIntent.putExtra(ProfileActivity.USER_KEY, (Serializable) user);
+                                            startActivity(startProfileIntent);
+                                            getActivity().finish();
+                                        }
+                                    }
+                                });
+                            }//
+
+                        }); //ApiUtils.getApiService().getUser(user).enqueue*/
+
             } else {
+
                 showMessage(R.string.input_error);
             }
         }
