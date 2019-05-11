@@ -16,7 +16,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private TextView mEmail;
     private TextView mName;
-    private User.UserBean mUser;
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
         mName = findViewById(R.id.tvName);
 
         Bundle bundle = getIntent().getExtras();
-        mUser = (User.UserBean) bundle.get(USER_KEY);
+        mUser = (User) bundle.get(USER_KEY);
         mEmail.setText(mUser.getEmail());
         mName.setText(mUser.getName());
     }
