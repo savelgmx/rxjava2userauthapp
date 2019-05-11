@@ -36,5 +36,5 @@ public interface AcademyApi {
     Call<Song> getSong(@Path("id") int id);
 
     @GET("user")
-    Single<User> getUser(@Header("Authorization") String authHeader);
+    Single<User.UserBean> getUser(@Header("Authorization") String authHeader);
 }
