@@ -2,6 +2,9 @@ package fb.fandroid.adv.rxjava2userauthapp;
 
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import fb.fandroid.adv.rxjava2userauthapp.model.User;
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -58,6 +61,49 @@ public class ApiUtils {
         }
         return api;
     }
+
+    public static AcademyApi getApiService(String email, String password, boolean createNewInstance) {
+        if (createNewInstance || api == null) {
+
+
+            api = rebuildRetrofit(getBasicAuthClient(
+                    email,
+                    password,
+                    true))
+                    .create(AcademyApi.class);
+        }
+        return api;
+    }
+
+    private static GsonConverterFactory buildUserGsonConverter() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+
+        // Adding custom deserializer
+        gsonBuilder.registerTypeAdapter(User.class, new UserDeserializer());
+        Gson myGson = gsonBuilder.create();
+
+        return GsonConverterFactory.create(myGson);
+    }
+
+    public static Retrofit rebuildRetrofit(OkHttpClient client) {
+        if (gson == null) {
+            gson = new Gson();
+        }
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BuildConfig.SERVER_URL)
+                // need for interceptors
+                .client(client)
+                .addConverterFactory(buildUserGsonConverter())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                //строка ниже нужна чтобы избежать ошибки Exeption
+                //Unable to create call adapter for io.reactivex.Single
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        return retrofit;
+    }
+
 }
 
 

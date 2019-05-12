@@ -39,14 +39,13 @@ public class AuthFragment extends Fragment {
             if (isEmailValid() && isPasswordValid()) {
                 String credentials = mEmail.getText().toString()+ ":" +mPassword.getText().toString();// concatenate username/email and password with colon for authentication
                 final String authHeader= "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);//form authenfication header
-                ApiUtils.getApiService()
-                        .getUser(authHeader)
+                ApiUtils.getApiService(mEmail.getText().toString(),mPassword.getText().toString(),true)
+                        .authentication()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(user->{
                                     //здесь данные которые успешно извлечены из user после вызова API
                                     //далее действия при успехе
-
                                     Intent startProfileIntent = new Intent(getActivity(), ProfileActivity.class);
                                     startProfileIntent.putExtra(ProfileActivity.USER_KEY, user);
                                     startActivity(startProfileIntent);
